@@ -1,16 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {HousingLocation} from '../housinglocation';
 import {RouterModule} from '@angular/router';
 @Component({
   selector: 'app-housing-location',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgOptimizedImage],
   template: `
     <section class="listing">
       <img
         class="listing-photo"
-        [src]="housingLocation.photo"
+        ngSrc={{housingLocation.photo}}
+        width="250"
+        height="250"
+        priority
         alt="Exterior photo of {{ housingLocation.name }}"
         crossorigin
       />

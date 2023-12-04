@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housinglocation';
@@ -8,12 +8,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
   template: `
     <article>
+     
       <img
         class="listing-photo"
-        [src]="housingLocation?.photo"
+        ngSrc={{housingLocation?.photo}}
+        loading="lazy"
         alt="Exterior photo of {{ housingLocation?.name }}"
         crossorigin
       />
@@ -59,6 +61,7 @@ export class DetailsComponent {
     // this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
     this.housingService.getHousingLocationById(housingLocationId).then((housingLocation) => {
       this.housingLocation = housingLocation;
+      console.log(this.housingLocation)
     });
   }
   submitApplication() {
